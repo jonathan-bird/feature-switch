@@ -1,7 +1,3 @@
-Add the following Service Provider to the array of Service Providers in file config/app.php:
-```JonathanBird\FeatureSwitch\FeatureSwitchServiceProvider::class,```
-
-
 Feature Switching (made easy)
 ======================
 
