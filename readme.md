@@ -1,7 +1,9 @@
 Feature Switching (made easy)
 ======================
 
-Simple laravel wrapper for [JoshuaEstes/FeatureToggle](https://github.com/JoshuaEstes/FeatureToggle).
+Need to wrap new features for dev and production? Use a directive in the view or alias in the controller
+
+We had it in Java in my old work, however I found a real lack of good libraries to do this in PHP, so I've created my own.
 
 ## Installation
 
