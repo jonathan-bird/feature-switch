@@ -8,9 +8,7 @@
       "email": "hello@jonathanbird.com.au"
     }
   ],
-  "require": {
-    "joshuaestes/feature-toggle": "dev-master"
-  },
+  "require": {},
   "autoload": {
     "psr-4": {
       "App\\": "app/",

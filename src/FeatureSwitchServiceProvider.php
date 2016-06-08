@@ -5,7 +5,6 @@ namespace JonathanBird\FeatureSwitch;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use JonathanBird\FeatureSwitch\Feature;
-use JoshuaEstes\Component\FeatureToggle\FeatureContainer;
 
 class FeatureSwitchServiceProvider extends ServiceProvider
 {
@@ -42,10 +41,6 @@ class FeatureSwitchServiceProvider extends ServiceProvider
     {
         $this->registerFeature();
         $this->registerFacade();
-
-//            $features       = LaravelFeatureBuilder::fromFeatureConfigs($featureConfigs);
-//            return new FeatureContainer($features);
-
     }
 
     /**
