@@ -1,9 +1,9 @@
-Feature Switching (made easy)
+Feature Switching (made easy) for PHP
 ======================
 
 Need to wrap new features for dev and production? Use a directive in the view or alias in the controller
 
-We had it in Java in my old work, however I found a real lack of good libraries to do this in PHP, so I've created my own.
+There's great libraries in Java and other languages, but I found a real lack of good libraries to do this in PHP, so I've created my own.
 
 ## Installation
 
@@ -16,6 +16,8 @@ Add the following line to the `require` section of `composer.json`:
     }
 }
 ```
+
+or `composer require jonathanbird/feature-switch`
 
 ## Setup
 
