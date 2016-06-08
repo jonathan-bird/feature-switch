@@ -27,5 +27,9 @@ or `composer require jonathanbird/feature-switch`
 
 ## Usage
 
-1. In the view, you can use the directive `@feature('feature_name') something @endfeature`
-2. In your controller or anywhere, simply add `use Feature;` to the top of your file and use the alias `Feature::isEnabled('feature_one')` which returns a boolean value
+1. In the view, you can use the directive ```@feature('feature_name') something @endfeature```
+2. In your controller or anywhere, simply add `use Feature;` to the top of your file and use the alias ```Feature::isEnabled('feature_one')``` which returns a boolean value
+3. To add features, add your feature name and boolean value to `config/feature-switch/features.php`
+
+## Issues
+If you find an issue, please report it. If it's something you can fix, fork the project and use a pull request as it'll be much quicker.
