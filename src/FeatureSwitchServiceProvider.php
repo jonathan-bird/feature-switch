@@ -4,11 +4,12 @@ namespace JonathanBird\FeatureSwitch;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
-//use JoshuaEstes\Component\FeatureToggle\FeatureContainer;
+use JonathanBird\FeatureSwitch\Feature;
+use JoshuaEstes\Component\FeatureToggle\FeatureContainer;
 
 class FeatureSwitchServiceProvider extends ServiceProvider
 {
-//    private $_packageName = "FeatureSwitch";
+    private $_packageName = "feature-switch";
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -24,13 +25,11 @@ class FeatureSwitchServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        require __DIR__ . '/../vendor/autoload.php';
-
-        $this->setupBladeDirective();
+        $this->registerBladeDirectives();
 
         // Publish vendor folder
         $this->publishes([
-            __DIR__.'/../config' => config_path('feature-switch'),
+            __DIR__.'/../config' => config_path($this->_packageName),
         ]);
     }
 
@@ -41,21 +40,56 @@ class FeatureSwitchServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app['FeatureSwitch'] = $this->app->share(function($app) {
-            $configPath     = sprintf("packages.infi-nl.%s.feature", $this->_packageName);
-            $featureConfigs = $app["config"]->get($configPath) ?: array();
+        $this->registerFeature();
+        $this->registerFacade();
 
-            $features       = LaravelFeatureBuilder::fromFeatureConfigs($featureConfigs);
+//            $features       = LaravelFeatureBuilder::fromFeatureConfigs($featureConfigs);
+//            return new FeatureContainer($features);
 
-            return new FeatureContainer($features);
+    }
+
+    /**
+     * Register the application bindings.
+     *
+     * @return void
+     */
+    private function registerFeature()
+    {
+        $this->app->bind('feature', function () {
+            return new Feature();
         });
     }
 
-    public function setupBladeDirective()
+    /**
+     * Register the vault facade without the user having to add it to the app.php file.
+     *
+     * @return void
+     */
+    public function registerFacade()
+    {
+        $this->app->booting(function () {
+            $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+            $loader->alias('Feature', Feature::class);
+        });
+    }
+
+    public function registerBladeDirectives()
     {
         Blade::directive('feature', function($feature)
         {
-            return "<?php if{$feature}: echo $feature; ?> ";
+            $feature = explode( "('" , rtrim( $feature , "')" ))[1];
+            $feature = Feature::isEnabled($feature);
+
+            if (!$feature) return "<?php if ( false === true ) : ?>";
+
+            return "<?php if ( (bool)$feature == true ) : ?>";
+        });
+
+        /**
+         * Generic if closer to not interfere with built in blade
+         */
+        Blade::directive('endfeature', function () {
+            return "<?php endif; ?>";
         });
     }
 
