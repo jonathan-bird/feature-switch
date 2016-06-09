@@ -1,4 +1,4 @@
-Feature Switching (made easy) for PHP
+Feature Switching (made easy) for Laravel
 ======================
 
 Need to wrap new features for dev and production? Use a directive in the view or alias in the controller
